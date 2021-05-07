@@ -1,6 +1,17 @@
 <template>
   <div class="home">
-    <v-list class="pt-0" flat>
+    <v-text-field
+      v-model="newTaskTitle"
+      @click:append="addTask()"
+      @keyup.enter="addTask()"
+      class="pa-3"
+      outlined
+      label="Dodaj zadanie"
+      append-icon="mdi-plus"
+      hide-details
+      clearable
+    ></v-text-field>
+    <v-list v-if="tasks.length" class="pt-0" flat>
       <div v-for="task in tasks" :key="task.id">
         <v-list-item
           @click="doneTask(task.id)"
@@ -17,11 +28,20 @@
                 >{{ task.zadanie }}</v-list-item-title
               >
             </v-list-item-content>
+            <v-list-item-action>
+              <v-btn icon @click.stop="deleteTask(task.id)">
+                <v-icon color="primary">mdi-delete</v-icon>
+              </v-btn>
+            </v-list-item-action>
           </template>
         </v-list-item>
         <v-divider></v-divider>
       </div>
     </v-list>
+    <div v-else class="no-tasks">
+      <v-icon class="pa-6" size="100" color="primary">mdi-check</v-icon>
+      <div class="pa-7 text-h5 primary--text">Brak Zadań</div>
+    </div>
   </div>
 </template>
 
@@ -30,6 +50,7 @@ export default {
   name: "Home",
   data() {
     return {
+      newTaskTitle: "",
       tasks: [
         {
           id: 1,
@@ -50,10 +71,30 @@ export default {
     };
   },
   methods: {
+    addTask() {
+      let newTask = {
+        id: Date.now(),
+        zadanie: this.newTaskTitle,
+        done: false,
+      };
+      this.tasks.push(newTask);
+      this.newTaskTitle = "";
+    },
     doneTask(id) {
       let task = this.tasks.filter((task) => task.id === id)[0];
       task.done = !task.done;
     },
+    deleteTask(id) {
+      this.tasks = this.tasks.filter((task) => task.id !== id);
+    },
   },
 };
 </script>
+<style lang="sass">
+.no-tasks
+  position: absolute
+  left: 50%
+  top: 50%
+  transform: translate(-50%, -50%)
+  opacity: 50%
+</style>
