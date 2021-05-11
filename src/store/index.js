@@ -20,8 +20,13 @@ export default new Vuex.Store({
           id: 3,
           zadanie: "jedź do pracy",
           done: false,
+          
         },
       ],
+      snackbar :{
+        show: false,
+        text: 'Hellow'
+      }
   },
   mutations: {
     addTask(state, newTaskTitle) {
@@ -40,8 +45,19 @@ export default new Vuex.Store({
      deleteTask(state, id) {
       state.tasks = state.tasks.filter((task) => task.id !== id);
     },
+    showSnackbar(state) {
+      state.snackbar.show = true
+    }
   },
   actions: {
+    addTask({commit}, newTaskTitle){
+      commit('addTask' , newTaskTitle)
+      commit('showSnackbar')
+    },
+    deleteTask({commit}, id) {
+      commit('deleteTask', id)
+      commit('showSnackbar')
+    }
   },
   modules: {
   }

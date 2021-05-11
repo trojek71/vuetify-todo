@@ -7,8 +7,6 @@
 </template>
 
 <script>
-import ListTasks from "../components/Todo/ListTasks.vue";
-import NoTask from "../components/Todo/NoTask.vue";
 export default {
   name: "Home",
 

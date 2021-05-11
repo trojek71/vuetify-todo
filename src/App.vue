@@ -57,11 +57,13 @@
     </v-app-bar>
     <v-main>
       <router-view></router-view>
+      <snackbar />
     </v-main>
   </v-app>
 </template>
 
 <script>
+///import Snackbar from "./components/Shared/Snackbar.vue";
 export default {
   name: "App",
 
@@ -73,5 +75,8 @@ export default {
       { title: "Informacje", icon: "mdi-help-box", to: "/about" },
     ],
   }),
+  components: {
+    snackbar: require("@/components/Shared/Snackbar.vue").default,
+  },
 };
 </script>
