@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import Task from "./Task.vue";
 export default {
   components: {
     task: require("@/components/Todo/Task.vue").default,
