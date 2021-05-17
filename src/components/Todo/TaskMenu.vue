@@ -60,7 +60,7 @@ export default {
   }),
   methods: {
     handleClick(index) {
-      this.items[index].click.call();
+      this.items[index].click.call(this);
     },
   },
   components: {
