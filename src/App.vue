@@ -70,9 +70,17 @@ export default {
   data: () => ({
     drawer: null,
     items: [
-      { title: "Zadania", icon: "mdi-format-list-checks", to: "/" },
+      {
+        title: "Zadania",
+        icon: "mdi-format-list-checks",
+        to: "/",
+      },
 
-      { title: "Informacje", icon: "mdi-help-box", to: "/about" },
+      {
+        title: "Informacje",
+        icon: "mdi-help-box",
+        to: "/about",
+      },
     ],
   }),
   components: {

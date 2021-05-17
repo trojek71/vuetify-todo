@@ -16,9 +16,7 @@
           >
         </v-list-item-content>
         <v-list-item-action>
-          <v-btn icon @click.stop="$store.dispatch('deleteTask', task.id)">
-            <v-icon color="primary">mdi-delete</v-icon>
-          </v-btn>
+          <task-menu :task="task" />
         </v-list-item-action>
       </template>
     </v-list-item>
@@ -27,7 +25,13 @@
 </template>
 
 <script>
+import DialogDelete from "./Dialogs/DialogDelete.vue";
+import TaskMenu from "./TaskMenu.vue";
 export default {
   props: ["task"],
+
+  components: {
+    "task-menu": require("@/components/Todo/TaskMenu.vue").default,
+  },
 };
 </script>
