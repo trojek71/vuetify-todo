@@ -8,17 +8,17 @@ export default new Vuex.Store({
     tasks: [
         {
           id: 1,
-          zadanie: "Wstawaj",
+          title: "Wstawaj",
           done: false,
         },
         {
           id: 2,
-          zadanie: "zrób śniadanie",
+          title: "zrób śniadanie",
           done: false,
         },
         {
           id: 3,
-          zadanie: "jedź do pracy",
+          title: "jedź do pracy",
           done: false,
           
         },
@@ -32,7 +32,7 @@ export default new Vuex.Store({
     addTask(state, newTaskTitle) {
       let newTask = {
         id: Date.now(),
-        zadanie: newTaskTitle,
+        title: newTaskTitle,
         done: false,
       };
       state.tasks.push(newTask);
@@ -44,6 +44,10 @@ export default new Vuex.Store({
     },
      deleteTask(state, id) {
       state.tasks = state.tasks.filter((task) => task.id !== id);
+    },
+    updateTaskTitle(state, payload) {
+      let task = state.tasks.filter((task) => task.id === payload.id)[0];
+      task.title = payload.title
     },
     showSnackbar(state, text) {
       let timeout = 0
@@ -68,6 +72,10 @@ export default new Vuex.Store({
     deleteTask({commit}, id) {
       commit('deleteTask', id)
       commit('showSnackbar', 'Zadanie usuniete')
+    },
+    updateTaskTitle({commit}, payload) {
+      commit('updateTaskTitle', payload)
+      commit('showSnackbar', 'Zadanie zmienione')
     }
   },
   modules: {
