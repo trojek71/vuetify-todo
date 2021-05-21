@@ -29,6 +29,7 @@
       dark
       src="https://picsum.photos/1920/1080?random"
       prominent
+      height="170"
     >
       <template v-slot:img="{ props }">
         <v-img
@@ -36,14 +37,15 @@
           gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"
         ></v-img>
       </template>
-      <v-container class="pa-0">
-        <v-row>
+      <v-container class="text-h4 pa-0 mr-4">
+        <v-row  >
           <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
           <v-spacer></v-spacer>
           <search />
         </v-row>
-        <v-toolbar-title>Zadania do zrobienia</v-toolbar-title>
+        <v-toolbar-title>Zadania do zrobienia dla Tomka</v-toolbar-title>
         <v-row> </v-row>
+       <live-date-time />
       </v-container>
     </v-app-bar>
     <v-main>
@@ -54,8 +56,10 @@
 </template>
 
 <script>
+import LiveDateTime from './components/Todo/Tools/LiveDateTime.vue';
 import Search from "./components/Todo/Tools/Search.vue";
 export default {
+  components: { LiveDateTime },
   name: "App",
 
   data: () => ({
@@ -75,8 +79,9 @@ export default {
     ],
   }),
   components: {
-    search: require("@/components/Todo/Tools/Search.vue").default,
-    snackbar: require("@/components/Shared/Snackbar.vue").default,
+    "search": require("@/components/Todo/Tools/Search.vue").default,
+    "live-date-time": require("@/components/Todo/Tools/LiveDateTime.vue").default,
+    "snackbar": require("@/components/Shared/Snackbar.vue").default,
   },
 };
 </script>

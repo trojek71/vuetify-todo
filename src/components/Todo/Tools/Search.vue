@@ -28,6 +28,7 @@ export default {
 <style lang="sass">
 .expanding-search
   transition: max-width 0.3s
+ 
   .v-input__slot
     cursor: pointer !important
     &:before, &:after
@@ -36,4 +37,5 @@ export default {
     max-width: 45px
     .v-input__slot
       background: transparent !important
+      
 </style>
