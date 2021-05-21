@@ -36,13 +36,15 @@
           gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"
         ></v-img>
       </template>
-
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-
-      <v-app-bar-title>Zadania do zrobienia</v-app-bar-title>
-
-      <v-spacer></v-spacer>
-      <search />
+      <v-container class="pa-0">
+        <v-row>
+          <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+          <v-spacer></v-spacer>
+          <search />
+        </v-row>
+        <v-toolbar-title>Zadania do zrobienia</v-toolbar-title>
+        <v-row> </v-row>
+      </v-container>
     </v-app-bar>
     <v-main>
       <router-view></router-view>
