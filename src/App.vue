@@ -1,15 +1,18 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer app v-model="drawer">
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title class="title">Do zrobienia </v-list-item-title>
-          <v-list-item-subtitle> Tomka </v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-
-      <v-divider></v-divider>
-
+    <v-navigation-drawer app v-model="drawer" :mobile-breakpoint="768">
+      <v-img
+        class="pa-4 pt-7"
+        height="170"
+        src="hot-air-balloon.jpg"
+        gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"
+      >
+        <v-avatar size="70" class="mb-2">
+          <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="Tomek" />
+        </v-avatar>
+        <div class="white--text text-subtitle-1 font-weight-bold">Tomek</div>
+        <div class="white--text text-subtitle-2">tomekr@email.com</div>
+      </v-img>
       <v-list dense nav>
         <v-list-item v-for="item in items" :key="item.title" link :to="item.to">
           <v-list-item-icon>
@@ -27,7 +30,7 @@
       app
       color="primary"
       dark
-      src="https://picsum.photos/1920/1080?random"
+      src="hot-air-balloon.jpg"
       prominent
       height="170"
     >
@@ -37,15 +40,15 @@
           gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"
         ></v-img>
       </template>
-      <v-container class="text-h4 pa-0 mr-4">
-        <v-row  >
+      <v-container class="header-container text-h4 pa-0 mr-4">
+        <v-row>
           <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
           <v-spacer></v-spacer>
           <search />
         </v-row>
         <v-toolbar-title>Zadania do zrobienia dla Tomka</v-toolbar-title>
         <v-row> </v-row>
-       <live-date-time />
+        <live-date-time />
       </v-container>
     </v-app-bar>
     <v-main>
@@ -56,7 +59,7 @@
 </template>
 
 <script>
-import LiveDateTime from './components/Todo/Tools/LiveDateTime.vue';
+import LiveDateTime from "./components/Todo/Tools/LiveDateTime.vue";
 import Search from "./components/Todo/Tools/Search.vue";
 export default {
   components: { LiveDateTime },
@@ -79,9 +82,14 @@ export default {
     ],
   }),
   components: {
-    "search": require("@/components/Todo/Tools/Search.vue").default,
-    "live-date-time": require("@/components/Todo/Tools/LiveDateTime.vue").default,
-    "snackbar": require("@/components/Shared/Snackbar.vue").default,
+    search: require("@/components/Todo/Tools/Search.vue").default,
+    "live-date-time": require("@/components/Todo/Tools/LiveDateTime.vue")
+      .default,
+    snackbar: require("@/components/Shared/Snackbar.vue").default,
   },
 };
 </script>
+<style lang="sass">
+.header-container
+  max-width: none !important
+</style>
