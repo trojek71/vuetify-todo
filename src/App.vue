@@ -8,10 +8,10 @@
         gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"
       >
         <v-avatar size="70" class="mb-2">
-          <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="Tomek" />
+          <img src="tomek.jpg" alt="Tomek" />
         </v-avatar>
         <div class="white--text text-subtitle-1 font-weight-bold">Tomek</div>
-        <div class="white--text text-subtitle-2">tomekr@email.com</div>
+        <div class="white--text text-subtitle-2">tomek@email.com</div>
       </v-img>
       <v-list dense nav>
         <v-list-item v-for="item in items" :key="item.title" link :to="item.to">
