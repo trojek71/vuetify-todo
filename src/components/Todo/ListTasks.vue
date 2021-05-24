@@ -1,8 +1,8 @@
 <template>
   <v-list class="pt-0" flat>
-    <draggable :list="$store.getters.taskFiltered" handle=".handle">
+    <draggable v-model="tasks" handle=".handle">
       <task
-        v-for="task in $store.getters.taskFiltered"
+        v-for="task in tasks"
         :key="task.id"
         :task="task"
       />
@@ -13,6 +13,16 @@
 <script>
 import draggable from "vuedraggable";
 export default {
+  computed: {
+    tasks: {
+        get() {
+            return this.$store.getters.taskFiltered
+        },
+        set(value) {
+            this.$store.commit('setTasks', value)
+        }
+    }
+},
   components: {
     task: require("@/components/Todo/Task.vue").default,
     draggable,

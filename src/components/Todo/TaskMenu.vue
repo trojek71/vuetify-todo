@@ -49,7 +49,7 @@ export default {
       delete: false,
     },
     items: [
-      {
+      { 
         title: "Edit",
         icon: "mdi-pencil",
         click() {
