@@ -46,7 +46,7 @@
           <v-spacer></v-spacer>
           <search />
         </v-row>
-        <v-toolbar-title>Zadania do zrobienia dla Tomka</v-toolbar-title>
+        <v-toolbar-title>{{ $store.state.appTitle }}</v-toolbar-title>
         <v-row> </v-row>
         <live-date-time />
       </v-container>
@@ -81,6 +81,7 @@ export default {
       },
     ],
   }),
+
   components: {
     search: require("@/components/Todo/Tools/Search.vue").default,
     "live-date-time": require("@/components/Todo/Tools/LiveDateTime.vue")
