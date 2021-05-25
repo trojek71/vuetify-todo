@@ -81,6 +81,9 @@ export default {
       },
     ],
   }),
+  mounted() {
+    this.$store.dispatch('getTasks')
+  },
 
   components: {
     search: require("@/components/Todo/Tools/Search.vue").default,

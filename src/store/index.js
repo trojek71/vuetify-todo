@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Localbase from 'localbase'
 
-let db = new Localbase('db1')
+let db1 = new Localbase('db1')
+db1.config.debug = false
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -10,24 +11,24 @@ export default new Vuex.Store({
     appTitle: process.env.VUE_APP_TITLE ,
     search: null,
     tasks: [
-        {
-          id: 1,
-          title: "Wstawaj",
-          done: false,
-          dueDate:'2021-05-23'
-        },
-        {
-          id: 2,
-          title: "zrób śniadanie",
-          done: false,
-          dueDate:'2021-05-28'
-        },
-        {
-          id: 3,
-          title: "jedź do pracy",
-          done: false,
-          dueDate:null
-        },
+        // {
+        //   id: 1,
+        //   title: "Wstawaj",
+        //   done: false,
+        //   dueDate:'2021-05-23'
+        // },
+        // {
+        //   id: 2,
+        //   title: "zrób śniadanie",
+        //   done: false,
+        //   dueDate:'2021-05-28'
+        // },
+        // {
+        //   id: 3,
+        //   title: "jedź do pracy",
+        //   done: false,
+        //   dueDate:null
+        // },
       ],
       snackbar :{
         show: false,
@@ -40,13 +41,8 @@ export default new Vuex.Store({
       state.search = value
 
     },
-    addTask(state, newTaskTitle) {
-      let newTask = {
-        id: Date.now(),
-        title: newTaskTitle,
-        done: false,
-        dueDate: null
-      };
+    addTask(state, newTask) {
+      
       state.tasks.push(newTask);
    
     },
@@ -87,21 +83,64 @@ export default new Vuex.Store({
   },
   actions: {
     addTask({commit}, newTaskTitle){
-      commit('addTask' , newTaskTitle)
-      commit('showSnackbar', 'Zadanie dodane')
+      let newTask = {
+        id: Date.now(),
+        title: newTaskTitle,
+        done: false,
+        dueDate: null
+      };
+      db1.collection('tasks').add(newTask).then(()=> {
+        commit('addTask' , newTask)
+        commit('showSnackbar', 'Zadanie dodane')
+      })
+      
+    },
+    doneTask({state, commit},id){
+      let task = state.tasks.filter((task) => task.id === id)[0]
+      db1.collection('tasks').doc({id: id}).update({ 
+        done : !task.done
+      }).then(() =>{
+        commit('doneTask',id)
+      })
+      
     },
     deleteTask({commit}, id) {
-      commit('deleteTask', id)
-      commit('showSnackbar', 'Zadanie usuniete')
+      db1.collection('tasks').doc({id:id}).delete({
+      }).then(()=> {
+        commit('deleteTask', id)
+        commit('showSnackbar', 'Zadanie usuniete')
+      })
+      
     },
-    updateTaskTitle({commit}, payload) {
-      commit('updateTaskTitle', payload)
-      commit('showSnackbar', 'Zadanie zmienione')
+    updateTaskTitle({state,commit}, payload) {
+      db1.collection('tasks').doc({id:payload.id}).update({
+        title: payload.title
+      }).then(()=> {
+        commit('updateTaskTitle', payload)
+        commit('showSnackbar', 'Zadanie zmienione')
+      })
+      
     },
     updateTaskDueDate({commit}, payload) {
+     db1.collection('tasks').doc({id:payload.id}).update({
+        dueDate: payload.dueDate
+      }).then(()=> {
+        commit('updateTaskDueDate', payload)
+        commit('showSnackbar', 'Termin zmieniony')
+      })
+
       commit('updateTaskDueDate', payload)
       commit('showSnackbar', 'Termin zmieniony')
-    }
+    },
+    setTasks({commit},tasks){
+      db1.collection('tasks').set(tasks)
+        commit('setTasks', tasks)
+    },
+    getTasks({commit}) {
+        db1.collection(`tasks`).get().then(tasks => {
+          commit('setTasks', tasks)
+        })
+    },
   },
   modules: {
   },
