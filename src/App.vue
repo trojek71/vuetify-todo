@@ -32,23 +32,27 @@
       dark
       src="hot-air-balloon.jpg"
       prominent
-      height="170"
+      :height="$route.path ===  '/' ? '230' : '170'"
     >
       <template v-slot:img="{ props }">
         <v-img
           v-bind="props"
-          gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"
+          gradient="to top right, rgba(19,84,122,.9), rgba(128,208,199,.8)"
         ></v-img>
       </template>
       <v-container class="header-container text-h4 pa-0 mr-4">
         <v-row>
           <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
           <v-spacer></v-spacer>
-          <search />
+          <search class="ml-3" />
         </v-row>
         <v-toolbar-title>{{ $store.state.appTitle }}</v-toolbar-title>
-        <v-row> </v-row>
-        <live-date-time />
+        <v-row > 
+        <live-date-time class="ml-3"  />
+        </v-row>
+        <v-row v-if="$route.path ===  '/'">
+           <field-and-task />
+        </v-row>
       </v-container>
     </v-app-bar>
     <v-main>
@@ -86,10 +90,11 @@ export default {
   },
 
   components: {
-    search: require("@/components/Todo/Tools/Search.vue").default,
+    "search": require("@/components/Todo/Tools/Search.vue").default,
     "live-date-time": require("@/components/Todo/Tools/LiveDateTime.vue")
       .default,
-    snackbar: require("@/components/Shared/Snackbar.vue").default,
+    "snackbar": require("@/components/Shared/Snackbar.vue").default,
+    "field-and-task": require("@/components/Todo/FieldAndTask.vue").default,
   },
 };
 </script>

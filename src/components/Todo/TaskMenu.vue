@@ -74,8 +74,12 @@ export default {
         title: "Sort",
         icon: "mdi-drag-horizontal-variant",
         click() {
+          if (!this.$store.state.search){
           this.$store.commit("toggleSorting");
-        },
+          } else {
+            this.$store.commit('showSnackar', ' nie mona sortować')
+          }
+        } 
       },
     ],
   }),
